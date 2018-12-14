@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <script src="https://unpkg.com/vue@2.5.17"></script>
+</head>
+<body>
+  <div id="app">
+    <my-page>
+      <h1 slot="header">This is my page</h1>
+      <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Ut distinctio, provident voluptatibus quis sed, facere perferendis eius magni, quas vel delectus dolor necessitatibus sint exercitationem ipsam officiis inventore porro dolore.</p>
+      <p slot="footer">This is footer</p>
+    </my-page>
+  </div>
+
+  <script>
+    var MyPage = {
+      template: `
+      <div>
+        <header>
+          <slot name="header"></slot>
+        </header>
+        <main>
+          <slot></slot>
+        </main>
+        <footer>
+          <slot name="footer"></slot>
+        </footer>
+      </div>
+      `
+    }
+
+    new Vue({
+      el: '#app',
+      components: {
+        MyPage: MyPage
+      }
+    })
+  </script>
+</body>
+</html>

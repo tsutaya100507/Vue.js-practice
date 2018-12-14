@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <script src="https://unpkg.com/vue@2.5.17"></script>
+</head>
+<body>
+  <div id="app">
+    <img v-fallback-image.once="noImageURL" src="./43624947930_bc5ede0e54_o.jpg" :alt="altText" style="width: 400px; height: auto;">
+  </div>
+
+  <script>
+    Vue.directive('fallback-image', {
+      bind: function (el, binding) {
+        console.log('bind', binding)
+        var once = binding.modifiers.once
+        el.addEventListener('error', function onError () {
+          el.src = binding.value
+          if (once) {
+            el.removeEventListener('error', onError)
+          }
+        })
+      },
+      update: function (el, binding) {
+        console.log('update', binding)
+        if (binding.oldValue !== binding.value && binding.oldValue === el.src) {
+          el.src = binding.value
+        }
+      }
+    })
+
+    var vm = new Vue({
+      el: '#app',
+      data: function() {
+        return {
+          altText: 'logo',
+          noImageURL: 'https://dummyimage.com/400x400/000/ffffff.png&text=no+image'
+        }
+      }
+    })
+  </script>
+</body>
+</html>

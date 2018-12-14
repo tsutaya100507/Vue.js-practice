@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <link href =" https://use.fontawesome.com/releases/v5.0.6/css/all.css" rel="stylesheet">
+  <script src="https://unpkg.com/vue@2.5.17"></script>
+</head>
+<body>
+  <div id="app">
+    <icon-share-button></icon-share-button>
+    <text-share-button></text-share-button>
+  </div>
+  <script>
+    // var IconShareButton = {
+    //   template: `
+    //   <button @click="share"><i class="fas fa-share-squre"></i></button>
+    //   `,
+    //   data: function () {
+    //     return {
+    //       _isProcessing: false
+    //     }
+    //   },
+    //   methods: {
+    //     share: function () {
+    //       if (this._isProcessing) {
+    //         return
+    //       }
+    //       if (!window.confirm('シェアしますか？')) {
+    //         return
+    //       }
+    //       this._isProcessing = true
+    //       setTimeout(() => {
+    //         window.alert('シェアしました')
+    //         this._isProcessing = false
+    //       }, 300)
+    //     }
+    //   }
+    // }
+
+    // var TextShareButton = {
+    //   template: `
+    //   <button @click="share">{{ buttonLabel }}</button>
+    //   `,
+    //   data: function () {
+    //     return {
+    //       buttonLabel: 'シェアする',
+    //       _isProcessing: false
+    //     }
+    //   },
+    //   methods: {
+    //     share: function () {
+    //       if(this._isProcessing) {
+    //         return
+    //       }
+    //       if (!window.confirm('シェアしますか？')) {
+    //         return
+    //       }
+    //       this._isProcessing = true
+    //       setTimeout(() => {
+    //         window.alert('シェアしました')
+    //         this._isProcessing = false
+    //       }, 300)
+    //     }
+    //   }
+    // }
+
+    var Sharable = {
+      data: function() {
+        return {
+          _isProcessing: false
+        }
+      },
+      methods: {
+        share: function () {
+          if (this._isProcessing) {
+            return
+          }
+          if (!window.confirm('シェアしますか？')) {
+            return
+          }
+          this._isProcessing = true
+          setTimeout(() => {
+            window.alert('シェアしました')
+            this._isProcessing = false
+          }, 300)
+        }
+      }
+    }
+
+    var IconShareButton = {
+      mixins: [Sharable],
+      template:`
+      <button @click="share"><i class="fas fa-share-squre"></i></button>
+      `,
+    }
+
+    var TextShareButton = {
+      mixins: [Sharable],
+      template:`
+      <button @click="share">{{ buttonLabel }}</button>
+      `,
+      data: function() {
+        return {
+          buttonLabel: 'シェアする'
+        }
+      }
+    }
+
+    new Vue({
+      el: '#app',
+      components: {
+        IconShareButton,
+        TextShareButton
+      }
+    })
+  </script>
+</body>
+</html>
